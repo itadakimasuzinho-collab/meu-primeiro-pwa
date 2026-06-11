@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha PWA Monitorada</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0070f3">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; }
+        button { background-color: #0070f3; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🚀 PWA Atualizada com Sucesso via CI/CD!</h1>
+        <p>Esta aplicação está sendo monitorada e atualizada via CI/CD.</p>
+        <button id="btn-notificacao">Ativar Notificações</button>
+    </div>
+
+    <script>
+        // Registrando o Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('Service Worker registrado:', reg.scope))
+                    .catch(err => console.error('Erro ao registrar Service Worker:', err));
+            });
+        }
+
+        // Permissão para notificações
+        document.getElementById('btn-notificacao').addEventListener('click', () => {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    console.log('Permissão concedida.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
